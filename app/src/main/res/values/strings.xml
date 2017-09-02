@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RecyclerViewDemo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="weixinpay">微信支付</string>
+    <string name="_20_09">晚上20:09</string>
+    <string name="pay_succ_notify">微信支付：支付成功通知</string>
+</resources>
