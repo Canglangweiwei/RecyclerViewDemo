@@ -14,6 +14,9 @@ import cn.edu.zafu.recyclerviewdemo.bean.ItemBean;
 import cn.edu.zafu.recyclerviewdemo.widget.OnRecyclerViewItemClickListener;
 import cn.edu.zafu.recyclerviewdemo.widget.SpaceItemDecoration;
 
+/**
+ * 首页
+ */
 public class MainActivity extends BaseActivity {
 
     @Bind(R.id.recyclerView)
@@ -37,7 +40,8 @@ public class MainActivity extends BaseActivity {
         // 默认动画效果
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         // 设置布局管理器，第三个参数为是否逆向布局
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
         // 设置每一项的装饰，这里给它加入分隔线
         recyclerView.addItemDecoration(new SpaceItemDecoration());
         // 可以提高效率
@@ -46,6 +50,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initDatas() {
+        // 测试数据
         for (int i = 0; i < 30; i++) {
             ItemBean itemBean = new ItemBean();
             itemBean.setImg(R.drawable.icon);
@@ -62,7 +67,7 @@ public class MainActivity extends BaseActivity {
         adapter.setListener(new OnRecyclerViewItemClickListener() {
 
             @Override
-            public void onClick(View view, int position) {
+            public void onClickEvent(View view, int position) {
                 Toast.makeText(getApplicationContext(),
                         data.get(position).getTitle(), Toast.LENGTH_SHORT).show();
             }

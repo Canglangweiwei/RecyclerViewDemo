@@ -20,7 +20,7 @@ import cn.edu.zafu.recyclerviewdemo.widget.OnRecyclerViewItemClickListener;
 @SuppressWarnings("ALL")
 public class RecyclerAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
-    private List<ItemBean> itemBeen;
+    private List<ItemBean> data;
 
     private OnRecyclerViewItemClickListener listener;
 
@@ -28,13 +28,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         this.listener = listener;
     }
 
-    public RecyclerAdapter(List<ItemBean> itemBeen) {
-        this.itemBeen = itemBeen;
+    public RecyclerAdapter(List<ItemBean> data) {
+        this.data = data;
     }
 
     @Override
     public int getItemCount() {
-        return itemBeen.size();
+        return data.size();
     }
 
     @Override
@@ -46,21 +46,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
     @Override
     public void onBindViewHolder(final ItemViewHolder viewHolder, final int position) {
-        ItemBean itemBean = itemBeen.get(position);
-        viewHolder.img.setImageResource(itemBean.getImg());
-        viewHolder.title.setText(itemBean.getTitle());
-        viewHolder.description.setText(itemBean.getDescription());
-        viewHolder.time.setText(itemBean.getTime());
-
-        viewHolder.itemView.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (listener != null) {
-                    listener.onClick(viewHolder.itemView, position);
-                }
-            }
-        });
+        // 数据绑定
+        viewHolder.bind(position);
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -77,6 +64,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         public ItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        /**
+         * 数据绑定
+         *
+         * @param position 位置
+         */
+        public void bind(final int position) {
+            ItemBean itemBean = data.get(position);
+            img.setImageResource(itemBean.getImg());
+            title.setText(itemBean.getTitle());
+            description.setText(itemBean.getDescription());
+            time.setText(itemBean.getTime());
+
+            itemView.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        listener.onClickEvent(itemView, position);
+                    }
+                }
+            });
         }
     }
 }
